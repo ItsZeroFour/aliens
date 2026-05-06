@@ -10,7 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "activemq": "^0.1.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "stompit": "^1.0.0"
   }
 }
