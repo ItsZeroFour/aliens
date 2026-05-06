@@ -1,8 +1,15 @@
 import stompit from "stompit";
+import tls from "tls";
+
+const tlsOptions = {
+  rejectUnauthorized: false,
+};
 
 const connectOptions = {
   host: "mq-test.maxi-retail.ru",
-  port: 61612,
+  port: 61617,
+  ssl: true,
+  tls: tlsOptions,
   connectHeaders: {
     host: "/",
     login: "almuzalewsky",
@@ -12,11 +19,11 @@ const connectOptions = {
 
 stompit.connect(connectOptions, (err, client) => {
   if (err) {
-    console.error("Ошибка подключения:", err.message);
+    console.error("❌ Ошибка подключения:", err.message);
     return;
   }
 
-  console.log("Подключились к брокеру!");
+  console.log("✅ Подключились к брокеру!");
 
   const sendHeaders = {
     destination: "/queue/test",
@@ -27,7 +34,7 @@ stompit.connect(connectOptions, (err, client) => {
   frame.write("test message");
   frame.end();
 
-  console.log("Сообщение отправлено");
+  console.log("✅ Сообщение отправлено");
 
   client.disconnect();
 });
