@@ -1,5 +1,5 @@
-import pkg from "activemq";
-const { createClient } = pkg;
+import pkg from 'activemq';
+const { createProducer } = pkg;
 
 const client = createClient({
   host: "mq-test.maxi-retail.ru",
