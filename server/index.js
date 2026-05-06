@@ -1,15 +1,12 @@
 import stompit from "stompit";
-import tls from "tls";
-
-const tlsOptions = {
-  rejectUnauthorized: false,
-};
 
 const connectOptions = {
   host: "mq-test.maxi-retail.ru",
-  port: 61617,
+  port: 61613,
   ssl: true,
-  tls: tlsOptions,
+  tls: {
+    rejectUnauthorized: false,
+  },
   connectHeaders: {
     host: "/",
     login: "almuzalewsky",
