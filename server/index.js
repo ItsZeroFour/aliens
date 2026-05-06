@@ -1,5 +1,5 @@
-// index.js
-import { createClient } from "activemq";
+import pkg from "activemq";
+const { createClient } = pkg;
 
 const client = createClient({
   host: "mq-test.maxi-retail.ru",
