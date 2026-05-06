@@ -1,30 +1,35 @@
 import pkg from 'activemq';
 const { createProducer } = pkg;
 
-const client = createClient({
-  host: "mq-test.maxi-retail.ru",
+const producer = createProducer({
+  host: 'mq-test.maxi-retail.ru',
   port: 61617,
   ssl: true,
   rejectUnauthorized: false,
-  login: "almuzalewsky",
-  passcode: "r8D1zYcnFy",
+  login: 'almuzalewsky',
+  passcode: 'r8D1zYcnFy',
+  destination: '/queue/test',
 });
 
-client.connect();
+producer.on('connect', () => {
+  console.log('✅ Подключились к брокеру!');
 
-client.on("connect", () => {
-  console.log("Подключились к брокеру!");
-
-  client.send("/queue/test", {}, "test message");
-  console.log("Сообщение отправлено в очередь");
-
-  client.disconnect();
+  producer.send('test message', (err) => {
+    if (err) {
+      console.error('❌ Ошибка отправки:', err.message);
+    } else {
+      console.log('✅ Сообщение отправлено в очередь');
+    }
+    producer.disconnect();
+  });
 });
 
-client.on("error", (err) => {
-  console.error("Ошибка подключения:", err.message);
+producer.on('error', (err) => {
+  console.error('❌ Ошибка подключения:', err.message);
 });
 
-client.on("disconnect", () => {
-  console.log("Отключились");
+producer.on('disconnect', () => {
+  console.log('🔌 Отключились');
 });
+
+producer.connect();
